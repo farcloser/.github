@@ -14,10 +14,9 @@ body:
         - label: I read the documentation but could not find an answer there
           required: true
   - type: textarea
-    id: what-is-it
+    id: question-body
     attributes:
-      label: What would that be?
-      description: Tell us what that feature would be, what use case it is helping, who is it for
-      placeholder: Awesome feature XYZ
+      label: My question
+      placeholder: What...? Why...?
     validations:
       required: true
