@@ -5,8 +5,7 @@ An organization focused on developer tooling and core (mostly go) libraries.
 Small, dependency-light, aggressively pinned. Everything here is built the same way, because
 the rules are written down and a tool enforces them.
 
-> 🔒 marks a private repository — listed for completeness, but the link will 404 unless you
-> have been granted access.
+> 🔒 marks a private repository
 
 ## Workstation & repository setup
 
