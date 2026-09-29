@@ -1,11 +1,10 @@
-# CI for the organization's community-health repository.
-#
-# The canonical shape — GitHub's own checkout pinned by SHA, aqua for the
-# pinned toolchain, and `just` recipes identical to the ones a laptop runs —
-# but on a single linux leg. ci.yaml is seeded once and is the project's own
-# from there (see book/mandatory-files.md), and this repository ships no code:
-# nothing here is platform-dependent, so the five-runner matrix the code
-# repositories need would buy nothing but minutes.
+# CI for the organization's community-health repository: limen's canonical
+# ci.yaml (GitHub's own actions pinned by SHA, aqua at aqua.yaml's pins, `just`
+# running the recipes a laptop runs), on a single linux leg and without the
+# fuzz job. ci.yaml is seeded once and is the project's own from there (see
+# book/mandatory-files.md), and this repository ships no code: nothing here is
+# platform-dependent, so the five-runner matrix the code repositories need
+# would buy nothing but minutes, and there is no Go module to fuzz.
 name: ci
 
 on:
@@ -13,7 +12,9 @@ on:
     branches: [main]
   pull_request:
 
-# No default token permissions: each job states what it needs.
+# No default token permissions: each job states what it needs. This workflow
+# only ever reads the repository — it cannot write code, releases, or
+# packages even if a step is compromised.
 permissions: {}
 
 # A superseded run (new push to the same branch/PR) is cancelled, not raced.
@@ -21,6 +22,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Explicit bash everywhere, as in the canonical: it brings -eo pipefail.
 defaults:
   run:
     shell: bash
@@ -30,9 +32,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Single leg, but kept as a matrix so the check-run name stays
-        # `verify (ubuntu-24.04)` — the shape the canonical limen:main ruleset
-        # names in its required status checks.
+        # One leg: see the header. These names are NOT the ruleset's required
+        # contexts — `gate` is, so this list can change freely.
         os: [ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 15
@@ -44,8 +45,8 @@ jobs:
           # The token is not left behind in .git/config: nothing in this
           # workflow talks to GitHub after checkout.
           persist-credentials: false
-          # Full history: `just do lint commits` validates the commit range
-          # against the PR's base branch, which a shallow clone lacks.
+          # Full history and refs: `just do lint commits` validates the commit
+          # range against the PR's base branch, which a shallow clone lacks.
           fetch-depth: 0
 
       - name: Install aqua (pinned, checksum-verified)
@@ -63,12 +64,8 @@ jobs:
             aqua-pkgs-${{ runner.os }}-${{ runner.arch }}-
 
       - name: Install pinned tools
-        # Not optional: setup-aqua only installs aqua itself and puts its bin
-        # directory on PATH — that directory is EMPTY until this runs. The
-        # shims created here are what make `just` (and everything the recipes
-        # call) resolve at all. Link-only: each tool downloads lazily on first
-        # use and is verified against the committed aqua-checksums.json then,
-        # so a job only pays for the tools its recipes actually run.
+        # Link-only: tools download lazily on first use, checksum-verified; a
+        # job pays only for what its recipes run.
         run: aqua install --only-link
 
       # The Go build and module caches, plus the linter's (build/cache/, see
@@ -132,15 +129,18 @@ jobs:
       - name: Install every pinned tool
         run: aqua install
 
-  # The single required status check, identical to the canonical ci.yaml's.
-  # This repository runs one leg where the code repositories run five — which
-  # is exactly why the ruleset names this job and not the matrix.
+  # The ONE required status check (defaultRequiredChecks in
+  # internal/github/audit.go). Requiring the matrix legs by name would bake
+  # this runner list into every ruleset; this job collapses the matrix to one
+  # stable name.
   gate:
     needs: [verify, tools]
-    # always(), with the result asserted: without it a failed dependency SKIPS
-    # this job, and a skipped required check does not block a merge. tools is
-    # asserted alongside verify, so a pin that does not install blocks a
-    # merge the same way a failing lint does.
+    # always(), and the result asserted explicitly. Without always() a failed
+    # or cancelled dependency SKIPS this job instead of failing it, and a
+    # skipped required check does not block a merge — branch protection that
+    # quietly stops protecting. `needs.verify.result` is success only when
+    # every matrix leg succeeded; tools is asserted alongside so a pin that
+    # does not build blocks a merge the same way a failing test does.
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -148,6 +148,8 @@ jobs:
     steps:
       - name: Every verify leg and tools succeeded
         env:
+          # Via env, never interpolated into the script: the shell sees data,
+          # not something the expression layer can rewrite into code.
           RESULT: ${{ needs.verify.result }}
           RESULT_TOOLS: ${{ needs.tools.result }}
         run: |
