@@ -1,10 +1,15 @@
-# CI for the organization's community-health repository: limen's canonical
-# ci.yaml (GitHub's own actions pinned by SHA, aqua at aqua.yaml's pins, `just`
-# running the recipes a laptop runs), on a single linux leg and without the
-# fuzz job. ci.yaml is seeded once and is the project's own from there (see
-# book/mandatory-files.md), and this repository ships no code: nothing here is
-# platform-dependent, so the five-runner matrix the code repositories need
-# would buy nothing but minutes, and there is no Go module to fuzz.
+# Seeded once by `limen fix`, then the project's own: limen never updates it.
+# Realign it by hand when limen's canonical moves, and comment every project
+# line so the next alignment keeps it.
+#
+# Minimal glue: GitHub's own actions pinned by SHA, aqua at aqua.yaml's pins,
+# `just` running the recipes a laptop runs. No third-party actions, hence no
+# egress-filtering action either.
+#
+# This repository's own: the organization's community-health repository ships
+# no code, so it runs a single linux leg (nothing here is platform-dependent;
+# the five-runner matrix would buy nothing but minutes) and no fuzz job (there
+# is no Go module to fuzz).
 name: ci
 
 on:
@@ -36,6 +41,8 @@ jobs:
         # contexts — `gate` is, so this list can change freely.
         os: [ubuntu-24.04]
     runs-on: ${{ matrix.os }}
+    # Project line: the canonical's 45 minutes are headroom for the windows
+    # legs, which this file does not run.
     timeout-minutes: 15
     permissions:
       contents: read
@@ -140,7 +147,8 @@ jobs:
     # skipped required check does not block a merge — branch protection that
     # quietly stops protecting. `needs.verify.result` is success only when
     # every matrix leg succeeded; tools is asserted alongside so a pin that
-    # does not build blocks a merge the same way a failing test does.
+    # does not build blocks a merge the same way a failing test does. Project
+    # line: no fuzz in needs, as there is no fuzz job (see the header).
     if: always()
     runs-on: ubuntu-24.04
     timeout-minutes: 5
