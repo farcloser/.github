@@ -44,7 +44,7 @@ the rules are written down and a tool enforces them.
   that brings remote Docker hosts to a desired state over SSH.
 - [**gluon**](https://github.com/farcloser/gluon) — deployment plans and helpers built on
   quark.
-- [**godolint**](https://github.com/farcloser/godolint) — a Dockerfile linter, written in Go.
+- [**godolint**](https://github.com/forkcloser/godolint) — a Dockerfile linter, written in Go.
 - [**healthcheckers**](https://github.com/farcloser/healthcheckers) — tiny http, dns and rtsp
   clients meant to be used as container `HEALTHCHECK`s.
 - 🔒 [**go-vz**](https://github.com/farcloser/go-vz) — Go bindings for Apple's
