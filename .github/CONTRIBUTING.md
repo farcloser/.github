@@ -104,7 +104,10 @@ the toolchain and enforces the shared baseline. You do not need to install anyth
 signature is proof the commit came from your key. We require both.
 
 We sign with SSH keys, preferably backed by a hardware token (YubiKey and other `sk-`
-keys). Configure git once:
+keys); why one hardware-bound key for both authentication and signing, and what to do
+when the token is lost, is the book's
+[Identity and keys](https://github.com/farcloser/limen/blob/main/book/identity.md).
+Configure git once:
 
 ```
 git config --global gpg.format ssh
