@@ -68,12 +68,16 @@ use the body to explain *why* — the diff already says what.
 - **Always a pull request.** Nobody pushes to `main`, including maintainers. The PR is the
   audit trail and the CI gate, not only a review venue — a solo project merging its own
   green PR is working as intended.
-- **Linear history.** Merge commits are disallowed; `squash` and `rebase` are the available
-  merge methods. Rebase onto `main` rather than merging `main` into your branch.
+- **Your branch stays linear.** Rebase onto `main` rather than merging `main` into your
+  branch: a pull request is read commit by commit, one commit per concern, and a merge
+  commit in it says nothing. The maintainer merges the approved pull request with a merge
+  commit; its title is the release note, so write it as one.
 - **CI must be green.** Required status checks block the merge button. Do not ask for an
   exception; fix the check or explain why the check is wrong.
-- **Force-pushing your own branch is fine** and often the right move after review. Force-push
-  and deletion are blocked on `main` only.
+- **Force-pushing your own branch is fine** and often the right move after review; use
+  `git push --force-with-lease`. Force-push and deletion are blocked on `main` only.
+- **New to this?** [GIT.md](./GIT.md) is the companion: amending, rebasing, editing a
+  commit in the middle of a branch, force-pushing safely.
 
 ## Before you open it
 
@@ -113,7 +117,7 @@ With `commit.gpgsign` set, every commit is signed without you thinking about it.
 single commit explicitly, use `git commit -S -s`; to sign a branch you already wrote,
 `git rebase --exec 'git commit --amend --no-edit -S' origin/main`.
 
-Repositories ship an `.allowed_signers` file mapping identities to public keys, so
+Repositories ship a `.lint-signers` file mapping identities to public keys, so
 `git log --show-signature` and `git tag -v` resolve locally. Add your key to it in the same
 pull request as your first contribution:
 

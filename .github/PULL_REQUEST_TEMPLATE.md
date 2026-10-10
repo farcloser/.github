@@ -1,8 +1,8 @@
 <!--
 Thanks for the pull request.
 
-The title and this body become the squash commit message — write them for someone
-reading `git log` in two years, not for the review thread.
+The title is the release note and this body is the record — write them for someone
+reading them in two years, not for the review thread.
 -->
 
 ## What
@@ -35,9 +35,9 @@ inheriting them is the whole point.
 - [ ] Commits are signed off (`git commit -s`) — see
       [CONTRIBUTING.md](https://github.com/farcloser/.github/blob/main/.github/CONTRIBUTING.md)
 - [ ] Commits are cryptographically signed (`commit.gpgsign`), and my key is in
-      `.allowed_signers`
+      `.lint-signers`
 - [ ] Subject lines are under 90 characters, no trailing whitespace
-- [ ] Branch is rebased on `main` (no merge commits)
+- [ ] Branch is rebased on `main` (no merge commits in it)
 - [ ] This is not a security fix — those go through
       [private vulnerability reporting](https://github.com/farcloser/.github/blob/main/.github/SECURITY.md),
       never a public PR
