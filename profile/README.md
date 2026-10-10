@@ -64,9 +64,6 @@ the rules are written down and a tool enforces them.
 
 ## Documentation & infrastructure
 
-- [**open-source-help-desk**](https://github.com/farcloser/open-source-help-desk) —
-  documentation easing the mundane hurdles of contributing to open source, starting with a
-  thorough git cheat sheet (DCO, signing, rebasing, squashing).
 - [**.github**](https://github.com/farcloser/.github) — this repository: the organization
   profile and the community health files every other repository inherits.
 

@@ -76,6 +76,8 @@ use the body to explain *why* — the diff already says what.
   exception; fix the check or explain why the check is wrong.
 - **Force-pushing your own branch is fine** and often the right move after review; use
   `git push --force-with-lease`. Force-push and deletion are blocked on `main` only.
+- **New to this?** [GIT.md](./GIT.md) is the companion: amending, rebasing, editing a
+  commit in the middle of a branch, force-pushing safely.
 
 ## Before you open it
 
