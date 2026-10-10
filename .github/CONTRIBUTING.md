@@ -113,7 +113,7 @@ With `commit.gpgsign` set, every commit is signed without you thinking about it.
 single commit explicitly, use `git commit -S -s`; to sign a branch you already wrote,
 `git rebase --exec 'git commit --amend --no-edit -S' origin/main`.
 
-Repositories ship an `.allowed_signers` file mapping identities to public keys, so
+Repositories ship a `.lint-signers` file mapping identities to public keys, so
 `git log --show-signature` and `git tag -v` resolve locally. Add your key to it in the same
 pull request as your first contribution:
 
