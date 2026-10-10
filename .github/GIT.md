@@ -45,8 +45,9 @@ git add path/to/file
 git commit --amend --no-edit
 ```
 
-`--amend` opens the message for editing unless you pass `--no-edit`; a signed commit
-stays signed, since git re-signs it.
+`--amend` opens the message for editing unless you pass `--no-edit`. The amended commit
+is a new commit: with `commit.gpgsign` set, git signs it again on its own; without it,
+pass `-S` again or the signature is gone.
 
 ## Rebase, do not merge
 
