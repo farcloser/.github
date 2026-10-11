@@ -13,9 +13,10 @@ the rules are written down and a tool enforces them.
   enforceable. Checks, fixes and bootstraps our repositories: mandatory files, pinned
   tooling, GitHub settings. Its [engineering handbook](https://github.com/farcloser/limen/blob/main/book/index.md)
   is the doctrine the rest of this organization follows.
-- [**limen-install**](https://github.com/farcloser/limen-install) — one script to make a
-  machine ready for development: aqua and limen, pinned and signature-verified, on macOS,
-  Linux and Windows.
+- [**limen-install**](https://github.com/farcloser/limen-install) — one script that makes a
+  machine ready for development and keeps it so, nightly: aqua and limen, pinned and
+  signature-verified, on macOS, Linux and Windows; on macOS also the toolset, OpenSSH with
+  security keys and its agent.
 - [**homebrew-brews**](https://github.com/farcloser/homebrew-brews) — our Homebrew tap: our
   own tools, plus hardened forks of upstream formulas (openssh without OpenSSL, ed25519-only,
   baked-in config).
@@ -23,10 +24,8 @@ the rules are written down and a tool enforces them.
   automatically.
 - [**tarmac**](https://github.com/farcloser/tarmac) — a dependency-free shell script that
   installs a per-user Homebrew on a blank macOS, and seeds `.profile`.
-- [**ssh-agent**](https://github.com/farcloser/ssh-agent) — a macOS user launch agent for
-  `ssh-agent`, for YubiKeys and other `sk-` keys the vanilla macOS agent does not support.
 - 🔒 [**onboarding**](https://github.com/farcloser/onboarding) — workstation provisioning:
-  shell dotfiles and a bootstrap on top of tarmac.
+  shell dotfiles, and a first-day bootstrap through limen-install.
 
 ## Containers & virtualization
 
@@ -44,7 +43,6 @@ the rules are written down and a tool enforces them.
   that brings remote Docker hosts to a desired state over SSH.
 - [**gluon**](https://github.com/farcloser/gluon) — deployment plans and helpers built on
   quark.
-- [**godolint**](https://github.com/forkcloser/godolint) — a Dockerfile linter, written in Go.
 - [**healthcheckers**](https://github.com/farcloser/healthcheckers) — tiny http, dns and rtsp
   clients meant to be used as container `HEALTHCHECK`s.
 - 🔒 [**go-vz**](https://github.com/farcloser/go-vz) — Go bindings for Apple's
@@ -68,6 +66,10 @@ the rules are written down and a tool enforces them.
   profile and the community health files every other repository inherits.
 
 ## Forks
+
+Hardened builds and rewrites of upstream software our tooling depends on (OpenSSH with
+security keys and its agent, curl, godolint) live in the
+[forkcloser](https://github.com/forkcloser) organization. Here:
 
 - [**tigron**](https://github.com/farcloser/tigron) — a modern testing framework for
   command-line applications. Superseded upstream: use

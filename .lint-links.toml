@@ -10,5 +10,5 @@ exclude = [
   # Keep this list in sync with the 🔒 entries in profile/README.md. Adding a
   # line here silences a real check: only ever add a repository that is private
   # ON PURPOSE, never one that is merely broken.
-  '^https://github\.com/farcloser/(onboarding|go-vz|zerogravity)$',
+  '^https://github\.com/farcloser/(onboarding|go-vz)$',
 ]
