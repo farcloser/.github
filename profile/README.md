@@ -17,9 +17,9 @@ the rules are written down and a tool enforces them.
   machine ready for development and keeps it so, nightly: aqua and limen, pinned and
   signature-verified, on macOS, Linux and Windows; on macOS also the toolset, OpenSSH with
   security keys and its agent.
-- [**homebrew-brews**](https://github.com/farcloser/homebrew-brews) — our Homebrew tap: our
-  own tools, plus hardened forks of upstream formulas (openssh without OpenSSL, ed25519-only,
-  baked-in config).
+- [**homebrew-brews**](https://github.com/farcloser/homebrew-brews) — our Homebrew tap, a
+  distribution hub for end-user tools: mumbrew and what it needs. Nothing a workstation
+  needs for development is here.
 - [**mumbrew**](https://github.com/farcloser/mumbrew) — keep your brews updated
   automatically.
 - [**tarmac**](https://github.com/farcloser/tarmac) — a dependency-free shell script that
