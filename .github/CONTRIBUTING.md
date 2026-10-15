@@ -65,9 +65,9 @@ use the body to explain *why* — the diff already says what.
 
 ## Pull requests
 
-- **Always a pull request.** Nobody pushes to `main`, including maintainers. The PR is the
-  audit trail and the CI gate, not only a review venue — a solo project merging its own
-  green PR is working as intended.
+- **Always a pull request.** Nobody pushes to `main`, including maintainers. The pull
+  request is the audit trail and the CI gate, and it merges with one approval and green
+  checks; an author cannot approve their own.
 - **Your branch stays linear.** Rebase onto `main` rather than merging `main` into your
   branch: a pull request is read commit by commit, one commit per concern, and a merge
   commit in it says nothing. The maintainer merges the approved pull request with a merge
