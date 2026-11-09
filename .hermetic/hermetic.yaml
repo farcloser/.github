@@ -23,7 +23,7 @@ packages:
     registry: local
   # This repository's own tools, beyond limen's canonical set: yq for the
   # issue-forms validation (.justfile).
-  - name: mikefarah/yq@v4.54.1
+  - name: mikefarah/yq@v4.54.2
   # Every other tool limen requires comes from the import, at the versions
   # this limen pins: a limen bump changes that file, never this list
   # (book/tooling.md).
